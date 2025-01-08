@@ -8,7 +8,7 @@ export interface Weeks {
 export type NepaliMonth =
   | "Baisakh"
   | "Jestha"
-  | "Ashadh"
+  | "Asar"
   | "Shrawan"
   | "Bhadra"
   | "Ashwin"

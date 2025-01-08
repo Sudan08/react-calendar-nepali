@@ -1,7 +1,7 @@
 import { Weeks } from "@/model";
 import DateContainer from "./DateContainer";
 import WeekContainer from "./WeekContainer";
-import { getNepaliMonthDays } from "@/utils";
+import { calculateStartDay, getNepaliMonthDays } from "@/utils";
 
 const weeks: Weeks[] = [
   { eng: "Sunday", nep: "आइतबार", engShort: "Sun", nepShort: "आइत" },
@@ -13,8 +13,15 @@ const weeks: Weeks[] = [
   { eng: "Saturday", nep: "शनिबार", engShort: "Sat", nepShort: "शनि" },
 ];
 
-const DataGrid = () => {
+export type DataGridProps = {
+  selectedYear: number;
+  selectedMonth: number;
+};
+
+const DataGrid = ({ selectedYear, selectedMonth }: DataGridProps) => {
   const monthArray = getNepaliMonthDays("Baisakh");
+  const startDay = calculateStartDay(selectedYear, selectedMonth);
+  console.log(startDay, " this is the start day");
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-row justify-between items-center gap-1 md:gap-2 lg:gap-4">
