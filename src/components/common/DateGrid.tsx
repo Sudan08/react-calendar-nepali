@@ -1,7 +1,8 @@
 import { Weeks } from "@/model";
 import DateContainer from "./DateContainer";
 import WeekContainer from "./WeekContainer";
-import { calculateStartDay, getNepaliMonthDays } from "@/utils";
+import { getNepaliMonthDays } from "@/utils";
+import NepaliDate from "nepali-date-converter";
 
 const weeks: Weeks[] = [
   { eng: "Sunday", nep: "आइतबार", engShort: "Sun", nepShort: "आइत" },
@@ -19,9 +20,18 @@ export type DataGridProps = {
 };
 
 const DataGrid = ({ selectedYear, selectedMonth }: DataGridProps) => {
-  const monthArray = getNepaliMonthDays("Baisakh");
-  const startDay = calculateStartDay(selectedYear, selectedMonth);
-  console.log(startDay, " this is the start day");
+  const days = getNepaliMonthDays(selectedYear, selectedMonth);
+  const daysArray = Array.from({ length: days }, (_, idx) => idx + 1);
+  const startDay = new NepaliDate(selectedYear, selectedMonth, 1).getDay();
+  console.log(startDay);
+
+  const preContainer = Array.from(
+    { length: startDay === 0 ? 1 : startDay },
+    (_, idx) => idx,
+  );
+
+  const postContainer = Array.from({ length: 34 - days }, (_, idx) => idx + 1);
+
   return (
     <div className="flex flex-col gap-4">
       <div className="flex flex-row justify-between items-center gap-1 md:gap-2 lg:gap-4">
@@ -30,8 +40,14 @@ const DataGrid = ({ selectedYear, selectedMonth }: DataGridProps) => {
         ))}
       </div>
       <div className="grid grid-cols-7 gap-1 md:gap-2 lg:gap-4">
-        {monthArray.map((item, idx) => (
-          <DateContainer {...item} key={idx} />
+        {preContainer.map((_, idx) => (
+          <DateContainer key={idx} />
+        ))}
+        {daysArray.map((item, idx) => (
+          <DateContainer day={item} key={idx} />
+        ))}
+        {postContainer.map((_, idx) => (
+          <DateContainer key={idx} />
         ))}
       </div>
     </div>

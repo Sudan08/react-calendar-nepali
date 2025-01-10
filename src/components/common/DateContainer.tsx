@@ -1,17 +1,16 @@
 export type DateContainer = {
+  day?: number;
   image?: string;
   isActive?: boolean;
 };
 
-const DateContainer = ({ image, isActive = false }: DateContainer) => {
+const DateContainer = ({ day, image, isActive = false }: DateContainer) => {
   return (
-    <div className="bg-calendar-containerBackground flex rounded-lg flex-1 justify-center items-center  flex-col py-4 ">
-      <span className="text-xs md:text-base">
-        {image ? "Image" : "No Image"}
-      </span>
-      <span className="text-xs md:text-base">
-        {isActive ? "Active" : "Inactive"}
-      </span>
+    <div className="bg-calendar-containerBackground flex rounded-lg flex-1 justify-center items-center  flex-col p-2 ">
+      {image ? (
+        <span className="text-xs w-full md:text-base">"Image"</span>
+      ) : null}
+      <span className="text-end w-full text-md md:text-xl ">{day}</span>
     </div>
   );
 };

@@ -1,5 +1,29 @@
 import { NepaliMonth } from "@/model";
 
+const CALENDAR_DATA: Record<number, number[]> = {
+  2070: [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
+  2071: [31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
+  2072: [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
+  2073: [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
+  2074: [31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
+  2075: [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
+  2076: [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
+  2077: [31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
+  2078: [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
+  2079: [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
+  2080: [31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
+  2081: [31, 32, 31, 32, 31, 30, 29, 30, 29, 29, 30, 31],
+  2082: [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
+  2083: [31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
+  2084: [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
+  2085: [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
+  2086: [31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
+  2087: [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
+  2088: [31, 31, 32, 31, 31, 31, 30, 29, 30, 29, 30, 30],
+  2089: [31, 31, 32, 32, 31, 30, 30, 29, 30, 29, 30, 30],
+  2090: [31, 32, 31, 32, 31, 30, 30, 30, 29, 29, 30, 31],
+} as const;
+
 export const nepaliMonthsInEnglish: { value: number; label: NepaliMonth }[] = [
   { value: 0, label: "Baisakh" },
   { value: 1, label: "Jestha" },
@@ -15,82 +39,44 @@ export const nepaliMonthsInEnglish: { value: number; label: NepaliMonth }[] = [
   { value: 11, label: "Chaitra" },
 ];
 
-export function getNepaliMonthDays(
-  month: NepaliMonth,
-  isLeapYear: boolean = false,
-) {
-  const months: Record<NepaliMonth, number> = {
-    Baisakh: 31,
-    Jestha: 31,
-    Asar: 31,
-    Shrawan: 31,
-    Bhadra: 31,
-    Ashwin: 30,
-    Kartik: 30,
-    Mangsir: 30,
-    Poush: 30,
-    Magh: 30,
-    Falgun: 30,
-    Chaitra: isLeapYear ? 31 : 30,
-  };
-
-  const days = months[month];
-  if (!days) {
-    throw new Error("Invalid Nepali month");
-  }
-
-  return Array.from({ length: days }, (_, i) => ({
-    day: i + 1,
-    month,
-  }));
+export function getNepaliMonthDays(year: number, month: number) {
+  return CALENDAR_DATA[year][month];
 }
 
 export const calculateStartDay = (
   targetYear: number,
   targetMonth: number,
 ): number => {
-  const referenceYear = 2070;
-  const referenceStartDay = 0; // Sunday
-  const parsedMonth =
-    nepaliMonthsInEnglish.filter((item) => item.value === targetMonth).at(0)
-      ?.label || "Baisakh";
-
-  // Days in each month for a single year (accounting for leap years in Chaitra)
-  const months: Record<NepaliMonth, number> = {
-    Baisakh: 31,
-    Jestha: 31,
-    Asar: 31,
-    Shrawan: 31,
-    Bhadra: 31,
-    Ashwin: 30,
-    Kartik: 30,
-    Mangsir: 30,
-    Poush: 30,
-    Magh: 30,
-    Falgun: 30,
-    Chaitra: targetYear % 4 === 3 ? 31 : 30,
-  };
-
-  // Get the months in order
-  const monthKeys = Object.keys(months) as NepaliMonth[];
+  const referenceYear = 2075;
+  const referenceStartDay = 3; // Wednesday (This is the known start day of 2075 BS)
 
   let totalDays = 0;
 
-  // Calculate days from reference year to target year
-  for (let year = referenceYear; year < targetYear; year++) {
-    const isLeapYear = year % 4 === 3; // Example leap year rule
-    totalDays += Object.values({
-      ...months,
-      Chaitra: isLeapYear ? 31 : 30,
-    }).reduce((a, b) => a + b, 0);
+  // Calculate days for complete years
+  if (targetYear > referenceYear) {
+    // Forward calculation
+    for (let year = referenceYear; year < targetYear; year++) {
+      if (CALENDAR_DATA[year]) {
+        totalDays += CALENDAR_DATA[year].reduce((sum, days) => sum + days, 0);
+      }
+    }
+  } else if (targetYear < referenceYear) {
+    // Backward calculation
+    for (let year = targetYear; year < referenceYear; year++) {
+      if (CALENDAR_DATA[year]) {
+        totalDays -= CALENDAR_DATA[year].reduce((sum, days) => sum + days, 0);
+      }
+    }
   }
 
-  // Add days within the target year up to the target month
-  const endIndex = monthKeys.indexOf(parsedMonth);
-  for (let i = 0; i < endIndex; i++) {
-    totalDays += months[monthKeys[i]];
+  // Add days for months in target year
+  if (CALENDAR_DATA[targetYear]) {
+    for (let month = 0; month < targetMonth - 1; month++) {
+      totalDays += CALENDAR_DATA[targetYear][month];
+    }
   }
 
-  // Calculate the start day by taking modulo 7
-  return (referenceStartDay + totalDays) % 7;
+  // Ensure positive result for modulo operation
+  const dayIndex = (referenceStartDay + totalDays) % 7;
+  return dayIndex < 0 ? dayIndex + 7 : dayIndex;
 };
