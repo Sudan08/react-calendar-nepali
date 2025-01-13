@@ -21,9 +21,12 @@ export type DataGridProps = {
 
 const DataGrid = ({ selectedYear, selectedMonth }: DataGridProps) => {
   const days = getNepaliMonthDays(selectedYear, selectedMonth);
-  const daysArray = Array.from({ length: days }, (_, idx) => idx + 1);
+  const daysArray = Array.from({ length: days }, (_, idx) => ({
+    day: idx + 1,
+    month: selectedMonth,
+    year: selectedYear,
+  }));
   const startDay = new NepaliDate(selectedYear, selectedMonth, 1).getDay();
-  console.log(startDay);
 
   const preContainer = Array.from(
     { length: startDay === 0 ? 1 : startDay },
@@ -44,7 +47,7 @@ const DataGrid = ({ selectedYear, selectedMonth }: DataGridProps) => {
           <DateContainer key={idx} />
         ))}
         {daysArray.map((item, idx) => (
-          <DateContainer day={item} key={idx} />
+          <DateContainer {...item} key={idx} />
         ))}
         {postContainer.map((_, idx) => (
           <DateContainer key={idx} />
