@@ -30,30 +30,36 @@ const DataGrid = ({ selectedYear, selectedMonth }: DataGridProps) => {
 
   const preContainer = Array.from(
     { length: startDay === 0 ? 1 : startDay },
-    (_, idx) => idx,
+    (_, idx) => idx
   );
 
   const postContainer = Array.from({ length: 34 - days }, (_, idx) => idx + 1);
 
   return (
     <div className="flex flex-col gap-4">
-      <div className="flex flex-row justify-between items-center gap-1 md:gap-2 lg:gap-4">
+      <div className="flex flex-row justify-between items-center gap-1 md:gap-2 lg:gap-2">
         {weeks.map((item, idx) => (
           <WeekContainer {...item} key={idx} />
         ))}
       </div>
-      <div className="grid grid-cols-7 gap-1 md:gap-2 lg:gap-4">
+      <div className="grid grid-cols-7 gap-1  lg:gap-2">
         {preContainer.map((_, idx) => (
-          <DateContainer key={idx} />
+          <EmptyContainer key={idx} />
         ))}
         {daysArray.map((item, idx) => (
           <DateContainer {...item} key={idx} />
         ))}
         {postContainer.map((_, idx) => (
-          <DateContainer key={idx} />
+          <EmptyContainer key={idx} />
         ))}
       </div>
     </div>
+  );
+};
+
+export const EmptyContainer = () => {
+  return (
+    <div className="bg-calendar-containerBackground flex rounded-lg flex-1 justify-center items-end  flex-col p-2" />
   );
 };
 
