@@ -1,0 +1,8 @@
+[90m[main 2025-01-28T15:19:09.211Z][0m update#setState disabled
+[90m[main 2025-01-28T15:19:09.212Z][0m update#ctor - updates are disabled as there is no update URL
+[31920:0128/210411.196895:ERROR:mime_util_xdg.cc(137)] Invalid mime.cache file does not contain null prior to ALIAS_LIST_OFFSET=44
+[91m[main 2025-01-28T15:19:11.307Z][0m vscode-file: Refused to load resource /tmp/.mount_cursorBNeCFn/resources/app/extensions/theme-seti/icons/seti.woff from vscode-file: protocol (original URL: vscode-file://vscode-app/tmp/.mount_cursorBNeCFn/resources/app/extensions/theme-seti/icons/seti.woff)
+Opening in existing browser session.
+[31920:0128/210833.028955:ERROR:atom_cache.cc(230)] Add chromium/from-privileged to kAtomsToCache
+[90m[main 2025-01-28T15:32:53.204Z][0m Extension host with pid 32347 exited with code: 0, signal: unknown.
+[91m[main 2025-01-28T15:32:53.337Z][0m [UtilityProcess id: 1, type: fileWatcher, pid: 32328]: crashed with code 15 and reason 'killed'

@@ -23,3 +23,15 @@ export interface NepaliDay {
   day: number;
   month: NepaliMonth;
 }
+
+export type CalendarEvent = {
+  date: Date;
+  title: string;
+  location?: string;
+  description?: string;
+  startTime?: string;
+  endTime?: string;
+  isAllDay?: boolean;
+  images?: string[];
+  blogUrl?: string;
+}
