@@ -19,17 +19,58 @@ export type DataGridProps = {
   selectedMonth: number;
 };
 
-const events: CalendarEvent[] = [{
-  date: new Date(),
-  title: "Event 1",
-  description: "Event 1 description",
-  startTime: "10:00 AM",
-  endTime: "12:00 PM",
-  images: ["https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTU2RuA3FP2K7ByLGjY3bRTPJbbR4pNqJ_jvg&s", "image2.jpg"],
-  location: "Event 1 location",
-  blogUrl: "https://example.com/event1",
-  isAllDay: false,
-}]
+const events: CalendarEvent[] = [
+  {
+    date: new Date(),
+    title: "Event 1",
+    description: "Event 1 description",
+    startTime: "10:00 AM",
+    endTime: "12:00 PM",
+    images: [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTU2RuA3FP2K7ByLGjY3bRTPJbbR4pNqJ_jvg&s",
+      "image2.jpg",
+    ],
+    location: "Event 1 location",
+    blogUrl: "https://example.com/event1",
+    isAllDay: false,
+  },
+  {
+    date: new Date(),
+    title: "Event 1",
+    description: "Event 1 description",
+    startTime: "10:00 AM",
+    endTime: "12:00 PM",
+    images: [
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTU2RuA3FP2K7ByLGjY3bRTPJbbR4pNqJ_jvg&s",
+      "image2.jpg",
+    ],
+    location: "Event 1 location",
+    blogUrl: "https://example.com/event1",
+    isAllDay: false,
+  },
+  {
+    date: new Date(new Date().setDate(new Date().getDate() + 2)),
+    title: "Event 2",
+    description: "Event 2 description",
+    startTime: "01:00 PM",
+    endTime: "03:00 PM",
+    images: ["https://example.com/image3.jpg", "image4.jpg"],
+    location: "Event 2 location",
+    blogUrl: "https://example.com/event2",
+    isAllDay: false,
+  },
+  {
+    date: new Date(new Date().setDate(new Date().getDate() + 4)),
+    title: "Event 3",
+    description: "Event 3 description",
+    startTime: "04:00 PM",
+    endTime: "06:00 PM",
+    images: ["https://example.com/image5.jpg", "image6.jpg"],
+    location: "Event 3 location",
+    blogUrl: "https://example.com/event3",
+    isAllDay: false,
+  },
+];
 
 const DataGrid = ({ selectedYear, selectedMonth }: DataGridProps) => {
   const days = getNepaliMonthDays(selectedYear, selectedMonth);
@@ -71,7 +112,7 @@ const DataGrid = ({ selectedYear, selectedMonth }: DataGridProps) => {
 
 export const EmptyContainer = () => {
   return (
-    <div className="bg-calendar-containerBackground flex rounded-lg flex-1 justify-center items-end  flex-col p-2" />
+    <div className="bg-calendar-containerBackground flex rounded-lg flex-1 justify-center items-end  flex-col p-2 min-h-full md:min-h-[120px] h-full" />
   );
 };
 
