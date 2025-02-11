@@ -33,18 +33,20 @@ export const ReactNepaliCalendar = () => {
 
   return (
     <div className="max-w-full h-full m-4 p-4 flex flex-col gap-4 border-[1px] border-slate-300 rounded-md shadow-md bg-calendar-calendarBackground">
-      <div className="flex flex-col gap-4 md:gap-0 md:flex-row justify-between items-center">
-        <span className="text-lg">2081 Mangsir | Dec/Jan 2024</span>
+      <div className="flex flex-col gap-4 lg:gap-0 lg:flex-row justify-between items-center">
+        <span className="text-sm md:text-md lg:text-lg">
+          2081 Mangsir | Dec/Jan 2024
+        </span>
         <div className="flex flex-row gap-2 items-center justify-center">
-        <Button onClick={handlePrevMonth}>
-          <ChevronLeft />
-        </Button>
-        <Button>Today</Button>
-        <Button onClick={handleNextMonth}>
-          <ChevronRight />
-        </Button>
+          <Button onClick={handlePrevMonth}>
+            <ChevronLeft />
+          </Button>
+          <Button>Today</Button>
+          <Button onClick={handleNextMonth}>
+            <ChevronRight />
+          </Button>
         </div>
-        <div className="flex flex-row gap-4">
+        <div className="flex flex-col gap-2 md:flex-row md:gap-4">
           <YearSelect
             selectedYear={selectedYear}
             handleChange={(value) => setSelectedYear(Number(value))}

@@ -1,4 +1,4 @@
-import { CalendarEvent, Weeks } from "@/model";
+import { Weeks } from "@/model";
 import DateContainer from "./DateContainer";
 import WeekContainer from "./WeekContainer";
 import { getNepaliMonthDays } from "@/utils";
@@ -18,59 +18,6 @@ export type DataGridProps = {
   selectedYear: number;
   selectedMonth: number;
 };
-
-const events: CalendarEvent[] = [
-  {
-    date: new Date(),
-    title: "Event 1",
-    description: "Event 1 description",
-    startTime: "10:00 AM",
-    endTime: "12:00 PM",
-    images: [
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTU2RuA3FP2K7ByLGjY3bRTPJbbR4pNqJ_jvg&s",
-      "image2.jpg",
-    ],
-    location: "Event 1 location",
-    blogUrl: "https://example.com/event1",
-    isAllDay: false,
-  },
-  {
-    date: new Date(),
-    title: "Event 1",
-    description: "Event 1 description",
-    startTime: "10:00 AM",
-    endTime: "12:00 PM",
-    images: [
-      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTU2RuA3FP2K7ByLGjY3bRTPJbbR4pNqJ_jvg&s",
-      "image2.jpg",
-    ],
-    location: "Event 1 location",
-    blogUrl: "https://example.com/event1",
-    isAllDay: false,
-  },
-  {
-    date: new Date(new Date().setDate(new Date().getDate() + 2)),
-    title: "Event 2",
-    description: "Event 2 description",
-    startTime: "01:00 PM",
-    endTime: "03:00 PM",
-    images: ["https://example.com/image3.jpg", "image4.jpg"],
-    location: "Event 2 location",
-    blogUrl: "https://example.com/event2",
-    isAllDay: false,
-  },
-  {
-    date: new Date(new Date().setDate(new Date().getDate() + 4)),
-    title: "Event 3",
-    description: "Event 3 description",
-    startTime: "04:00 PM",
-    endTime: "06:00 PM",
-    images: ["https://example.com/image5.jpg", "image6.jpg"],
-    location: "Event 3 location",
-    blogUrl: "https://example.com/event3",
-    isAllDay: false,
-  },
-];
 
 const DataGrid = ({ selectedYear, selectedMonth }: DataGridProps) => {
   const days = getNepaliMonthDays(selectedYear, selectedMonth);
@@ -100,7 +47,7 @@ const DataGrid = ({ selectedYear, selectedMonth }: DataGridProps) => {
           <EmptyContainer key={idx} />
         ))}
         {daysArray.map((item, idx) => (
-          <DateContainer {...item} key={idx} events={events} />
+          <DateContainer {...item} key={idx} />
         ))}
         {postContainer.map((_, idx) => (
           <EmptyContainer key={idx} />

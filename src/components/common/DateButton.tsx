@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import NepaliDate from "nepali-date-converter";
 import { CalendarEvent } from "@/model";
 import { IYearMonthDate } from "nepali-date-converter/dist/types/nepali-date-helper";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 type DateButtonProps = {
   day: number;
@@ -33,6 +34,8 @@ const DateButton = ({
 
   const today = new NepaliDate();
 
+  const isSmallScreen = useMediaQuery("(max-width: 768px)");
+
   const isTodayDate =
     month === today.getMonth() &&
     day === today.getDate() &&
@@ -48,7 +51,7 @@ const DateButton = ({
     <Button
       onClick={events ? onClick : undefined}
       className={cn(
-        `bg-calendar-containerBackground flex rounded-lg flex-1 justify-between items-center flex-col p-2 h-16 md:h-[120px] relative hover:bg-calendar-containerBackground  cursor-default`,
+        `bg-calendar-containerBackground flex rounded-lg flex-1 justify-between items-center flex-col p-1 md:p-2 h-16 md:h-[120px] relative hover:bg-calendar-containerBackground  cursor-default`,
         events && "hover:cursor-pointer"
       )}
     >
@@ -63,11 +66,10 @@ const DateButton = ({
         </>
       ) : null}
       <div className="relative z-10 flex flex-col w-full h-full gap-2 justify-between">
-        <div className="flex flex-row items-center justify-between w-full">
+        <div className="flex flex-col md:flex-row items-center justify-between w-full h-full md:h-fit">
           <span
             className={cn(
-              "flex items-center justify-center w-4 h-4 md:w-6 md:h-6",
-              "text-sm",
+              "flex items-center justify-center  w-6 h-6 text-xs md:text-sm text-gray-800",
               isTodayDate && "bg-gray-800 text-white rounded-full"
             )}
           >
@@ -76,36 +78,37 @@ const DateButton = ({
 
           <span
             className={cn(
-              "flex items-center justify-center w-4 h-4 md:w-6 md:h-6",
-              "text-sm",
+              "flex items-center justify-center w-6 h-6 text-xs md:text-sm text-gray-800",
               isTodayDate && "bg-gray-800 text-white rounded-full"
             )}
           >
             {convertToNepaliNumeral(day)}
           </span>
         </div>
-        {events?.length > 0 ? (
+        {!isSmallScreen && events?.length > 0 ? (
           <div className="flex flex-row justify-center items-center bg-calendar-calendarBackground w-fit px-2 mx-auto rounded-sm border-calendar-containerBackground border-[1px] text-black">
             <span className="text-xs md:text-sm">{events[0].title}</span>
           </div>
         ) : null}
-        <div
-          className={cn(
-            "flex flex-row justify-end items-center bg-calendar-calendarBackground w-fit rounded-sm border-calendar-containerBackground border-[1px] px-2 ml-auto"
-          )}
-        >
-          {dateDiff > 0 ? (
-            <span className="text-xs md:text-sm text-green-500">
-              {dateDiff} day left
-            </span>
-          ) : dateDiff < 0 ? (
-            <span className="text-xs md:text-sm text-slate-600">
-              {Math.abs(dateDiff)} day ago
-            </span>
-          ) : (
-            <span className="text-xs md:text-sm  text-green-500">Today</span>
-          )}
-        </div>
+        {!isSmallScreen && (
+          <div
+            className={cn(
+              "flex flex-row justify-end items-center bg-calendar-calendarBackground w-fit rounded-sm border-calendar-containerBackground border-[1px] px-2 ml-auto"
+            )}
+          >
+            {dateDiff > 0 ? (
+              <span className="text-xs md:text-sm text-green-500">
+                {dateDiff} day left
+              </span>
+            ) : dateDiff < 0 ? (
+              <span className="text-xs md:text-sm text-slate-600">
+                {Math.abs(dateDiff)} day ago
+              </span>
+            ) : (
+              <span className="text-xs md:text-sm  text-green-500">Today</span>
+            )}
+          </div>
+        )}
       </div>
     </Button>
   );

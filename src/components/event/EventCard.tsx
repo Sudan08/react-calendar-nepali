@@ -1,5 +1,4 @@
 import { CalendarEvent } from "@/model";
-import React from "react";
 import {
   Card,
   CardHeader,
@@ -15,7 +14,7 @@ const EventCard = ({ event }: { event: CalendarEvent }) => {
   return (
     <Card className="w-full  mx-auto overflow-hidden">
       {event.images && event.images.length > 0 && (
-        <div className="w-full h-48 overflow-hidden border-b border-border">
+        <div className="w-full h-96 overflow-hidden border-b border-border">
           <img
             src={event.images[0] || "/placeholder.svg?height=192&width=384"}
             alt="Event image"
